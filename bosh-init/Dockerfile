@@ -12,3 +12,4 @@ RUN apt-get install -y wget
 
 RUN wget -q -O /usr/local/bin/bosh-init --no-check-certificate ${BOSH_INIT_URL}
 RUN chmod +x /usr/local/bin/bosh-init
+
