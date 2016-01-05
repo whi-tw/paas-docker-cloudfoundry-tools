@@ -13,7 +13,7 @@ describe "spruce image" do
   end
 
   it "installs the right version of Alpine Linux" do
-    expect(os_version).to include("Alpine Linux 3.2")
+    expect(os_version).to include("Alpine Linux 3.3")
   end
 
   def os_version
