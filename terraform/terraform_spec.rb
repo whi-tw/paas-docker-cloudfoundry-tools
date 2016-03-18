@@ -23,6 +23,14 @@ describe "Terraform image" do
     expect(file("/etc/alpine-release")).to be_file
   end
 
+  it "installs the right version of Alpine" do
+    expect(os_version).to include("Alpine Linux 3.3")
+  end
+
+  def os_version
+    command("cat /etc/issue | head -1").stdout
+  end
+
   it "installs Root Certificates" do
     expect(file("/usr/share/ca-certificates/mozilla/GlobalSign_Root_CA.crt")).to be_file
   end
