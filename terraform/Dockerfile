@@ -26,3 +26,12 @@ RUN set -ex \
     && for file in $BINARY_WHITELIST ; do mv bin/$file /usr/local/bin ; done \
     && rm -rf /go \
     && rm -rf /var/cache/apk/*
+
+RUN set -ex \
+    && mkdir -p /go/src/github.com/russellcardullo \
+    && cd /go/src/github.com/russellcardullo/ \
+    && go get github.com/russellcardullo/go-pingdom/pingdom \
+    && go get github.com/russellcardullo/terraform-provider-pingdom \
+    && mv /go/bin/terraform-provider-pingdom /usr/local/bin \
+    && rm -rf /go
+
