@@ -5,7 +5,7 @@ require 'serverspec'
 BOSH_INIT_PACKAGES = "build-essential zlibc zlib1g-dev ruby ruby-dev openssl libxslt1-dev libxml2-dev \
     libssl-dev libreadline6 libreadline6-dev libyaml-dev libsqlite3-dev sqlite3"
 BOSH_INIT_BIN = "/usr/local/bin/bosh-init"
-BOSH_INIT_VERSION = "0.0.80-a62aad7-2015-10-28T01:52:30Z"
+BOSH_INIT_VERSION = "0.0.87-6783cc5-2016-04-26T21:59:54Z"
 
 describe "bosh-init image" do
   before(:all) {
