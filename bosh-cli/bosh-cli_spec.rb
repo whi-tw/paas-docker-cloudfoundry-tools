@@ -27,6 +27,12 @@ describe "bosh-cli image" do
     ).to eq(0)
   end
 
+  it "has `bash` available" do
+    expect(
+      command("bash --version").exit_status
+    ).to eq(0)
+  end
+
   it "has a new enough version of openssl available" do
     # wget (from busybox) requires openssl to be able to connect to https sites.
 
