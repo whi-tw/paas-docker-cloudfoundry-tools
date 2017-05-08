@@ -5,6 +5,8 @@ set -eu
 export SOURCE_COMMIT
 SOURCE_COMMIT="${SOURCE_COMMIT:-$(git rev-parse HEAD)}"
 
+SOURCE_COMMIT_SHORT="$(git rev-parse --short ${SOURCE_COMMIT})"
+
 # Create an immutable tag that we can reference.
-docker tag "${IMAGE_NAME}" "${DOCKER_REPO}:${SOURCE_COMMIT}"
-docker push "${DOCKER_REPO}:${SOURCE_COMMIT}"
+docker tag "${IMAGE_NAME}" "${DOCKER_REPO}:${SOURCE_COMMIT_SHORT}"
+docker push "${DOCKER_REPO}:${SOURCE_COMMIT_SHORT}"
