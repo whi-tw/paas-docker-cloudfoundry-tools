@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM alpine:3.6
 
 ENV PACKAGES "unzip curl openssl ca-certificates git ruby ruby-json libc6-compat"
 ENV CF_CLI_VERSION "6.26.0"
@@ -7,7 +7,6 @@ ENV CF_BGD_CHECKSUM "fe6ebd3c2dc3a287db0d31eeaed200d1a27117d9a6ddd875de561e4a6e8
 ENV CF_BGD_TEMPFILE "/tmp/blue-green-deploy.linux64"
 
 RUN apk add --update $PACKAGES && rm -rf /var/cache/apk/*
-RUN ln -s /lib/ /lib64 # FIXME: Remove for Alpine >= 3.6
 
 RUN curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_VERSION}" | tar -zx -C /usr/local/bin
 RUN curl -L 'https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64' -o /usr/local/bin/jq && chmod +x /usr/local/bin/jq
