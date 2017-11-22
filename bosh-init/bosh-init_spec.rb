@@ -2,8 +2,7 @@ require 'spec_helper'
 require 'docker'
 require 'serverspec'
 
-BOSH_INIT_PACKAGES = "build-essential zlibc zlib1g-dev ruby ruby-dev openssl libxslt1-dev libxml2-dev \
-    libssl-dev libreadline6 libreadline6-dev libyaml-dev libsqlite3-dev sqlite3"
+BOSH_INIT_PACKAGES = "wget libc6-compat bash openssl build-base"
 BOSH_INIT_VERSION = "0.0.100-a5c1605-2017-02-14T23:33:52Z"
 
 describe "bosh-init image" do
@@ -11,12 +10,12 @@ describe "bosh-init image" do
     set :docker_image, find_image_id('bosh-init:latest')
   }
 
-  it "installs the right version of Ubuntu" do
-    expect(os_version).to include("Ubuntu 14")
+  it "installs the right version of Alpine Linux" do
+    expect(os_version).to include("Alpine Linux 3.4")
   end
 
   def os_version
-    command("lsb_release -a").stdout
+    command("cat /etc/issue | head -1").stdout
   end
 
   it "installs required packages" do

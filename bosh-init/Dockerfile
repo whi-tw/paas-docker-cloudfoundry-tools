@@ -1,14 +1,11 @@
-FROM ubuntu:14.04
+FROM ruby:2.4-alpine
 
 ENV BOSH_INIT_VERSION 0.0.100
 ENV BOSH_INIT_URL https://s3.amazonaws.com/bosh-init-artifacts/bosh-init-${BOSH_INIT_VERSION}-linux-amd64
-ENV BOSH_INIT_PACKAGES "build-essential zlibc zlib1g-dev ruby ruby-dev openssl libxslt1-dev libxml2-dev \
-    libssl-dev libreadline6 libreadline6-dev libyaml-dev libsqlite3-dev sqlite3"
+ENV BOSH_INIT_PACKAGES "wget libc6-compat bash openssl build-base"
 
-RUN apt-get update
-RUN apt-get -y upgrade
-RUN apt-get install -y --no-install-recommends ${BOSH_INIT_PACKAGES}
-RUN apt-get install -y wget
+RUN apk add --update ${BOSH_INIT_PACKAGES} && rm -rf /var/cache/apk/*
+RUN ln -s /lib/ /lib64 # FIXME: Remove for Alpine >= 3.6
 
 RUN wget -q -O /usr/local/bin/bosh-init --no-check-certificate ${BOSH_INIT_URL}
 RUN chmod +x /usr/local/bin/bosh-init
