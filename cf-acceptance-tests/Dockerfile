@@ -15,7 +15,7 @@ RUN \
  ENV PATH /go/bin:/usr/local/go/bin:$PATH
  RUN \
   wget https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz -P /tmp && \
-  tar xzvf /tmp/go1.9.linux-amd64.tar.gz -C /usr/local && \
+  tar xzf /tmp/go1.9.linux-amd64.tar.gz -C /usr/local && \
   mkdir $GOPATH && \
   rm -rf /tmp/*
 
