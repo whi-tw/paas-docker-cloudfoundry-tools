@@ -13,7 +13,7 @@ describe "self-update-pipelines image" do
   it "has ruby available" do
     expect(
       command("ruby -v").stdout
-    ).to match(/ruby 2\.2/)
+    ).to match(/ruby 2\.4/)
   end
 
   it "has curl available" do
