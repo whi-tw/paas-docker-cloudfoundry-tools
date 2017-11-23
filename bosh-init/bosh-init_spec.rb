@@ -8,6 +8,7 @@ BOSH_INIT_VERSION = "0.0.100-a5c1605-2017-02-14T23:33:52Z"
 describe "bosh-init image" do
   before(:all) {
     set :docker_image, find_image_id('bosh-init:latest')
+    set :os, :family => 'alpine'
   }
 
   it "installs the right version of Alpine Linux" do
