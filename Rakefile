@@ -32,4 +32,18 @@ namespace :spec do |ns|
   end
 end
 
+namespace :scan do |ns|
+  containers.each { |container|
+    desc "Scan #{container} image with trivy"
+    task container.to_sym do
+      system "trivy --exit-code 1 #{container}" or abort
+    end
+  }
+  desc "Run all containers scan"
+  task :all do
+    ns.tasks.each { |t| t.invoke }
+  end
+end
+
 task :default => [ "build:all", "spec:all" ]
+

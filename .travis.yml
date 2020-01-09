@@ -7,8 +7,15 @@ sudo: required
 services:
   - docker
 
+before_install:
+  - export TRIVY_VERSION='0.4.1'
+  - wget "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"
+  - tar zxvf "trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"
+
 before_script:
   - bundle exec rake build:all
 
 script:
   - bundle exec rake spec:all
+  - bundle exec rake scan:all
+
