@@ -13,6 +13,10 @@ on:
       tag_suffix:
         type: string
         description: "Optional suffix for all tags"
+      has_acceptance_tests:
+        default: false
+        type: boolean
+        description: "Specify if acceptance tests are needed for this image"
 
 env:
   TEST_TAG: paas-tool:latest
@@ -59,15 +63,18 @@ jobs:
           tags: ${{ env.TEST_TAG }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
+        if: ${{ inputs.has_acceptance_tests }}
 
       - name: Set up ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+        if: ${{ inputs.has_acceptance_tests }}
       - name: Acceptance Tests
         env:
           DOCKER_IMAGE: "${{ env.TEST_TAG }}"
         run: bundle exec rspec ./${{ inputs.image }}/${{ inputs.image }}_spec.rb
+        if: ${{ inputs.has_acceptance_tests }}
 
       - name: Build and push
         uses: docker/build-push-action@v3.0.0
