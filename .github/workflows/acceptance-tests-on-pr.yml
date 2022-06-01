@@ -26,6 +26,8 @@ jobs:
         run: bash -c '.github/workflows/scripts/generate-changed-files-matrix.sh ${{ steps.changed-files.outputs.all_changed_files }}'
 
   test-changed-images:
+    needs:
+      - get-changed-files
     uses: ./.github/workflows/build-image-base.yml
     with:
       image: ${{ fromJson(needs.get-changed-files.outputs.images) }}
