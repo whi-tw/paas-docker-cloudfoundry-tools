@@ -17,6 +17,10 @@ on:
         default: false
         type: boolean
         description: "Specify if acceptance tests are needed for this image"
+      push:
+        default: true
+        type: boolean
+        description: "Disable pushing to ghcr"
 
 env:
   TEST_TAG: paas-tool:latest
@@ -68,6 +72,7 @@ jobs:
           tags: ${{ env.TEST_TAG }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
+          cache-to: type=gha,mode=max
         if: ${{ inputs.has_acceptance_tests }}
 
       - name: Set up ruby
@@ -87,7 +92,8 @@ jobs:
           context: ./${{ inputs.image }}
           platforms: linux/amd64
           file: ./${{ inputs.image }}/${{inputs.dockerfile}}
-          push: true
+          push: ${{ inputs.push }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
           cache-to: type=gha,mode=max
