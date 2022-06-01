@@ -30,7 +30,7 @@ jobs:
       - get-changed-files
     uses: ./.github/workflows/build-image-base.yml
     with:
-      image: ${{ fromJson(needs.get-changed-files.outputs.images) }}
-      dockerfile: ${{ fromJson(needs.get-changed-files.outputs.dockerfiles) }}
-      has_acceptance_tests: ${{ fromJson(needs.get-changed-files.outputs.acceptance_tests) }}
+      image: ${{ needs.get-changed-files.outputs.images }}
+      dockerfile: ${{ needs.get-changed-files.outputs.dockerfiles }}
+      has_acceptance_tests: ${{ needs.get-changed-files.outputs.acceptance_tests }}
       push: false

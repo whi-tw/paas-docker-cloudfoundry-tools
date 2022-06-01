@@ -60,6 +60,7 @@ changed_files=("${@}")
 images=()
 dockerfiles=()
 acceptance_tests=()
+push=()
 
 for file in "${changed_files[@]}"; do
     potential_image_name=$(basedir "${file}")
@@ -71,12 +72,14 @@ for file in "${changed_files[@]}"; do
         images+=("${potential_image_name}")
         dockerfiles+=("${workflow_dockerfile}")
         acceptance_tests+=("${workflow_acceptance_tests}")
+        push+=("false")
     done
     # potential_workflows=(.github/workflows/"${basedir}"*.yml)
 done
 echo ::set-output name=images::"$(jq --compact-output --null-input '$ARGS.positional' --args -- "${images[@]}")"
 echo ::set-output name=dockerfiles::"$(jq --compact-output --null-input '$ARGS.positional' --args -- "${dockerfiles[@]}")"
 echo ::set-output name=acceptance_tests::"$(jq --compact-output --null-input '$ARGS.positional' --args -- "${acceptance_tests[@]}" | sed 's/"//g')"
+echo ::set-output name=push::"$(jq --compact-output --null-input '$ARGS.positional' --args -- "${push[@]}" | sed 's/"//g')"
 
 # ; do
 #             basedir="$(echo $file | cut -d'/' -f1)"
