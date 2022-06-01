@@ -14,5 +14,5 @@ jobs:
   workflows:
     uses: ./.github/workflows/build-image-base.yml
     with:
-      image: cf-acceptance-tests
+      image: awscli
       has_acceptance_tests: true
