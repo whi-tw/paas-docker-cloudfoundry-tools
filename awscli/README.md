@@ -14,5 +14,5 @@ $ docker build -t awscli.
 ## Run
 
 ```
-docker run -i -t awscli aws help
+docker run -i -t awscli aws help asdf
 ```
