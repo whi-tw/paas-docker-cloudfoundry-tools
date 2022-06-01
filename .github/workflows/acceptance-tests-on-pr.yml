@@ -26,18 +26,9 @@ jobs:
         run: bash -c '.github/workflows/scripts/generate-changed-files-matrix.sh ${{ steps.changed-files.outputs.all_changed_files }}'
 
   test-changed-images:
-    runs-on: ubuntu-latest
-    needs:
-      - get-changed-files
-    strategy:
-      fail-fast: false
-      matrix:
-        image: ${{ fromJson(needs.get-changed-files.outputs.images) }}
-        dockerfile: ${{ fromJson(needs.get-changed-files.outputs.dockerfiles) }}
-        has_acceptance_tests: ${{ fromJson(needs.get-changed-files.outputs.acceptance_tests) }}
     uses: ./.github/workflows/build-image-base.yml
     with:
-      image: ${{ matrix.image }}
-      dockerfile: ${{ matrix.dockerfile }}
-      has_acceptance_tests: ${{ matrix.has_acceptance_tests }}
+      image: ${{ fromJson(needs.get-changed-files.outputs.images) }}
+      dockerfile: ${{ fromJson(needs.get-changed-files.outputs.dockerfiles) }}
+      has_acceptance_tests: ${{ fromJson(needs.get-changed-files.outputs.acceptance_tests) }}
       push: false
