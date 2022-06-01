@@ -1,0 +1,17 @@
+name: "Image: futzing-around (alpine)"
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - ".github/workflows/futzing.yml"
+      - ".github/workflows/build-image-base.yml"
+
+jobs:
+  workflows:
+    uses: ./.github/workflows/build-image-base.yml
+    with:
+      image: alpine
+      push: false
