@@ -61,7 +61,7 @@ jobs:
           platforms: linux/amd64
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
 
       - name: Build for acceptance test
         uses: docker/build-push-action@v3.0.0
